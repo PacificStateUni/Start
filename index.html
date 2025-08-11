@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PSI University - Course Access</title>
+  <style>
+    /* Base styles */
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: url('https://images7.alphacoders.com/135/1350454.png') no-repeat center center fixed;
+      background-size: cover;
+      color: #ddd;
+      max-width: 700px;
+      margin: 40px auto;
+      padding: 30px 40px;
+      box-shadow: 0 0 30px rgba(30,30,47,0.7);
+      border-radius: 12px;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Headers */
+    h1, h2 {
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      color: #f0f0f5;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+      border-bottom: 2px solid #615ac4;
+      padding-bottom: 8px;
+    }
+
+    h2 {
+      font-size: 1.4rem;
+      margin-top: 30px;
+      margin-bottom: 15px;
+    }
+
+    /* Paragraphs */
+    p {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      color: #ccc;
+      margin-bottom: 20px;
+    }
+
+    /* Input field */
+    input {
+      width: 100%;
+      padding: 14px 20px;
+      margin: 20px 0;
+      background: rgba(50,50,60,0.7);
+      border: 1px solid #615ac4;
+      color: #f0f0f5;
+      border-radius: 6px;
+      font-size: 1rem;
+    }
+
+    /* Button */
+    button {
+      background: #615ac4;
+      color: white;
+      border: none;
+      padding: 14px 28px;
+      font-size: 1.1rem;
+      font-weight: 700;
+      border-radius: 6px;
+      cursor: pointer;
+      box-shadow: 0 5px 15px rgba(97, 90, 196, 0.6);
+      transition: all 0.3s ease;
+      width: 100%;
+      margin-top: 10px;
+    }
+
+    button:hover {
+      background: #8777e8;
+      transform: translateY(-2px);
+    }
+
+    /* Message box */
+    #message {
+      margin: 25px 0;
+      padding: 15px;
+      border-radius: 6px;
+      font-weight: 600;
+    }
+
+    /* Links */
+    a {
+      color: #8ab4f8;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    /* Notice box */
+    .notice {
+      background: rgba(60,60,80,0.5);
+      padding: 15px;
+      border-left: 3px solid #615ac4;
+      margin-bottom: 30px;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>PSI University</h1>
+    <p>Enter your access code to begin your courses</p>
+  </header>
+
+  <div class="notice">
+    <p><strong>Note:</strong> If you haven't received an access code, please complete your application first.</p>
+    <p>Return to <a href="https://pacific-states.carrd.co/">homepage</a> to apply.</p>
+  </div>
+
+  <section id="access-form">
+    <input type="text" id="studentID" placeholder="PSI-XXXX-XXXX">
+    <button onclick="verifyID()">Access Courses</button>
+    <div id="message"></div>
+  </section>
+
+  <script>
+    // Valid access codes by course
+    const validIDs = {
+      "GBDF": ["PSI-GB24-7A2F", "PSI-GB24-9B3G", "PSI-GB24-5C1D"],
+      "EECS": ["PSI-EC24-2L9M", "PSI-EC24-1N0P", "PSI-EC24-4Q7R"],
+      "ENGL": ["PSI-EL24-Y7Z2", "PSI-EL24-X4W3", "PSI-EL24-V9U1"],
+      "CMPE": ["PSI-CE24-P9I3", "PSI-CE24-O7K2", "PSI-CE24-L5J1"]
+    };
+
+    // Course material links
+    const courseLinks = {
+      "GBDF": "https://drive.google.com/.../global-business",
+      "EECS": "https://drive.google.com/.../ecommerce",
+      "ENGL": "https://drive.google.com/.../english",
+      "CMPE": "https://drive.google.com/drive/folders/1HZyCgKwgwI8WA6bTYATdxYArZ7MdZLlv?usp=drive_link"
+    };
+
+    function verifyID() {
+      const id = document.getElementById('studentID').value.trim().toUpperCase();
+      const message = document.getElementById('message');
+      
+      // Check all course IDs
+      for (const [course, ids] of Object.entries(validIDs)) {
+        if (ids.includes(id)) {
+          message.innerHTML = `<p style="color:#a7c080; background:rgba(60,80,50,0.2);">
+            ✓ Access granted! Redirecting to your course materials...
+          </p>`;
+          
+          setTimeout(() => {
+            window.location.href = courseLinks[course];
+          }, 1500);
+          return;
+        }
+      }
+      
+      message.innerHTML = `<p style="color:#d8937a; background:rgba(80,50,50,0.2);">
+        ✗ Invalid access code. Please check your email or contact support.
+      </p>`;
+    }
+  </script>
+</body>
+</html>
